@@ -3,7 +3,7 @@ package logic;
 public class Visitor {
 
 	private String name, email, id, lastname, phone;
-	
+
 	/* empty contructor creates a nullifyed visitor */
 	public Visitor() {
 		this.name = null;
@@ -25,7 +25,7 @@ public class Visitor {
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -61,11 +61,11 @@ public class Visitor {
 	public String getPhone() {
 		return phone;
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder ts = new StringBuilder();
-		if(id == null)
-		{
+		if (id == null) {
 			return "Error";
 		}
 		ts.append(id);
@@ -78,8 +78,7 @@ public class Visitor {
 		ts.append(" ");
 		ts.append(email);
 		return ts.toString();
-		
+
 	}
-	
-	
+
 }

@@ -2,6 +2,7 @@ package client;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import gui.SerchController;
+import gui.serverPortController;
 
 
 public class ClientUI extends Application {
@@ -18,7 +19,7 @@ public class ClientUI extends Application {
 		// TODO Auto-generated method stub
 						  		
 		SerchController aFrame = new SerchController(); // create StudentFrame
-		 
+		
 		aFrame.start(primaryStage);
 	}
 	

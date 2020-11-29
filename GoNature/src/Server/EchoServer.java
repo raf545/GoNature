@@ -10,8 +10,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import gui.serverPortController;
 import logic.Visitor;
 import ocsf.server.*;
+import sun.security.jca.GetInstance;
 
 /**
  * This class overrides some of the methods in the abstract superclass in order
@@ -27,7 +32,6 @@ import ocsf.server.*;
 public class EchoServer extends AbstractServer {
 	// Class variables *************************************************
 	private Connection con;
-	private Visitor sv = new Visitor();
 
 	/**
 	 * The default port to listen on.
@@ -56,19 +60,32 @@ public class EchoServer extends AbstractServer {
 	 * @param
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
-		int flag = 0;
+		Visitor sv = new Visitor();
+		System.out.println("Message received: " + msg + " from " + client);
+		if (msg instanceof ArrayList<?>) {
+			if (updateEmailInDB(msg))
+				this.sendToAllClients("succsess");
+		} else {
+			sv = searchInDB(msg);
+			if (sv.getId() != null)
+				this.sendToAllClients(sv.toString());
+			else
+				this.sendToAllClients("Error");
+
+		}
+	}
+
+	public Visitor searchInDB(Object msg) {
 		ResultSet res;
-		System.out.println("Message received: " + msg + " from " + client);	
-		
+		Visitor sv = new Visitor();
 		try {
-			String s = (String)msg;
-			PreparedStatement ps = con.prepareStatement("select * from gonature.Visitors where id = ?");
-			ps.setString(1,s);
-			
+			String s = (String) msg;
+			PreparedStatement ps = con.prepareStatement("select * from visitors where id = ?");
+			ps.setString(1, s);
+
 			res = ps.executeQuery();
-			
-			while (res.next())
-			{
+
+			while (res.next()) {
 				sv.setId(res.getString(1));
 				sv.setPhone(res.getString(2));
 				sv.setLastname(res.getString(3));
@@ -76,17 +93,26 @@ public class EchoServer extends AbstractServer {
 				sv.setEmail(res.getString(5));
 			}
 			res.close();
-			this.sendToAllClients(sv.toString());
-			flag = 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sv;
+	}
+
+	public boolean updateEmailInDB(Object msg) {
+
+		ArrayList tempV = (ArrayList<String>) msg;
+		try {
+			PreparedStatement ps = con.prepareStatement("UPDATE gonaturedb.visitors SET email = ? WHERE (id = ?);");
+			ps.setString(2, (String) tempV.get(0));
+			ps.setString(1, (String) tempV.get(1));
+			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (flag != 1) {
-			System.out.println("Visitor Not Found");
-			this.sendToAllClients("Error");
-		}
+		return true;
 	}
 
 	/**
@@ -103,8 +129,8 @@ public class EchoServer extends AbstractServer {
 		}
 
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/?user=root", "root",
-					"7C034CBD7cd$");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/gonaturedb?serverTimezone=IST",
+					"root", "root");
 			con = conn;
 			// Connection conn =
 			// DriverManager.getConnection("jdbc:mysql://192.168.3.68/test","root","Root");
@@ -125,5 +151,30 @@ public class EchoServer extends AbstractServer {
 	protected void serverStopped() {
 		System.out.println("Server has stopped listening for connections.");
 	}
+
+	// METHODS DESIGNED TO BE OVERRIDDEN BY CONCRETE SUBCLASSES ---------
+
+	/**
+	 * Hook method called each time a new client connection is accepted. The default
+	 * implementation does nothing.
+	 * 
+	 * @param client the connection connected to the client.
+	 */
+	protected void clientConnected(ConnectionToClient client) {
+		serverPortController sPc = serverPortController.getInstance();
+		sPc.setInfoClient(client.getInetAddress().toString(), client.getInetAddress().getHostAddress().toString());
+
+	}
+
+	/**
+	 * Hook method called each time a client disconnects. The default implementation
+	 * does nothing. The method may be overridden by subclasses but should remains
+	 * synchronized.
+	 *
+	 * @param client the connection with the client.
+	 */
+	synchronized protected void clientDisconnected(ConnectionToClient client) {
+	}
+
 }
 //End of EchoServer class
