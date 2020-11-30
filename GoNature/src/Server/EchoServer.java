@@ -176,7 +176,7 @@ public class EchoServer extends AbstractServer {
 	 */
 	synchronized protected void clientDisconnected(ConnectionToClient client) {
 
-		System.out.println("client disconected");
+		System.out.println("client disconected!!!!!!");
 	}
 
 }
