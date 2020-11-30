@@ -27,10 +27,10 @@ public class SerchController {
 	private Button exitBtn;
 
 	@FXML
-	void ExitWin(ActionEvent event) {
-		
-		Platform.exit();
-		System.exit(0);
+	void ExitWin(ActionEvent event) throws IOException {
+		ClientUI.chat.closeClientConn();
+		//Platform.exit();
+		//System.exit(0);
 	}
 
 	private String getID() {
