@@ -1,13 +1,18 @@
 package gui;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import org.w3c.dom.views.AbstractView;
 
+import Server.EchoServer;
 import Server.ServerUI;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,14 +23,14 @@ import ocsf.server.ConnectionToClient;
 
 public class serverPortController {
 
-	private static serverPortController sPC_instance = null;
+//	public static serverPortController sPC_instance ;
 
-	public static serverPortController getInstance() {
-		if (sPC_instance == null)
-			sPC_instance = new serverPortController();
-
-		return sPC_instance;
-	}
+//	public static serverPortController getInstance() {
+//		if (sPC_instance == null)
+//			sPC_instance = new serverPortController();
+//
+//		return sPC_instance;
+//	}
 
 	@FXML
 	private Button btnDone;
@@ -44,6 +49,7 @@ public class serverPortController {
 
 	@FXML
 	private TextField ipTxt;
+	// public static TextField static_ipTxt;
 
 	private String getport() {
 		return portxt.getText();
@@ -55,6 +61,9 @@ public class serverPortController {
 
 		p = getport();
 		portxt.setDisable(true);
+		ipTxt.setDisable(true);
+		statusTxt.setDisable(true);
+		hostTxt.setDisable(true);
 		if (p.trim().isEmpty()) {
 			System.out.println("You must enter a port number");
 
@@ -63,7 +72,8 @@ public class serverPortController {
 			// window
 			Stage primaryStage = new Stage();
 			FXMLLoader loader = new FXMLLoader();
-			ServerUI.runServer(p);
+
+			ServerUI.runServer(p, this);
 		}
 
 	}
@@ -75,6 +85,7 @@ public class serverPortController {
 	}
 
 	public void start(Stage primaryStage) throws Exception {
+
 		Parent root = FXMLLoader.load(getClass().getResource("/gui/ServerPort.fxml"));
 
 		Scene scene = new Scene(root);
@@ -86,12 +97,11 @@ public class serverPortController {
 	}
 
 	public void setInfoClient(String ip, String host) {
-		System.out.println(ip + host);
-		System.out.println();
+		Platform.runLater(() -> {
+			statusTxt.setText("Connected");
+			ipTxt.setText(ip);
+			hostTxt.setText(host);
 
-		ipTxt.setText(ip);
-		hostTxt.setText(host);
-
+		});
 	}
-
 }

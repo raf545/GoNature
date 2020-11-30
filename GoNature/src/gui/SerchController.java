@@ -28,7 +28,9 @@ public class SerchController {
 
 	@FXML
 	void ExitWin(ActionEvent event) {
+		
 		Platform.exit();
+		System.exit(0);
 	}
 
 	private String getID() {

@@ -32,6 +32,7 @@ import sun.security.jca.GetInstance;
 public class EchoServer extends AbstractServer {
 	// Class variables *************************************************
 	private Connection con;
+	private serverPortController sPC;
 
 	/**
 	 * The default port to listen on.
@@ -46,8 +47,9 @@ public class EchoServer extends AbstractServer {
 	 * @param port The port number to connect on.
 	 * 
 	 */
-	public EchoServer(int port) {
+	public EchoServer(int port, serverPortController sPC) {
 		super(port);
+		this.sPC = sPC;
 	}
 
 	// Instance methods ************************************************
@@ -161,9 +163,8 @@ public class EchoServer extends AbstractServer {
 	 * @param client the connection connected to the client.
 	 */
 	protected void clientConnected(ConnectionToClient client) {
-		serverPortController sPc = serverPortController.getInstance();
-		sPc.setInfoClient(client.getInetAddress().toString(), client.getInetAddress().getHostAddress().toString());
 
+		sPC.setInfoClient(client.getInetAddress().toString(), client.getInetAddress().getHostAddress().toString());
 	}
 
 	/**
@@ -174,6 +175,8 @@ public class EchoServer extends AbstractServer {
 	 * @param client the connection with the client.
 	 */
 	synchronized protected void clientDisconnected(ConnectionToClient client) {
+
+		System.out.println("client disconected");
 	}
 
 }
