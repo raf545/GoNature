@@ -56,7 +56,6 @@ public class ChatClient extends AbstractClient {
 		System.out.println("--> handleMessageFromServer");
 		awaitResponse = false;
 		String[] vis = ((String) msg).split(" ");
-
 		v1.setId(vis[0]);
 		v1.setName(vis[1]);
 		v1.setLastname(vis[2]);
