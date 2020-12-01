@@ -55,7 +55,6 @@ public class ChatClient extends AbstractClient {
 	public void handleMessageFromServer(Object msg) {
 		System.out.println("--> handleMessageFromServer");
 		awaitResponse = false;
-//		Visitor temp = (Visitor) msg;
 		String[] vis = ((String) msg).split(" ");
 
 		v1.setId(vis[0]);
@@ -63,11 +62,6 @@ public class ChatClient extends AbstractClient {
 		v1.setLastname(vis[2]);
 		v1.setPhone(vis[3]);
 		v1.setEmail(vis[4]);
-//		v1.setId(temp.getId());
-//		v1.setName(temp.getName());
-//		v1.setLastname(temp.getLastname());
-//		v1.setEmail(temp.getEmail());
-//		v1.setPhone(temp.getPhone());
 	}
 
 	/**

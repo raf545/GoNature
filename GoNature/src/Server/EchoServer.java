@@ -167,16 +167,7 @@ public class EchoServer extends AbstractServer {
 	 * @param client the connection connected to the client.
 	 */
 	protected void clientConnected(ConnectionToClient client) {
-
 		sPC.setInfoClient(client.getInetAddress().toString(), client.getInetAddress().getHostAddress().toString());
 	}
-
-	/**
-	 * Hook method called each time a client disconnects. The default implementation
-	 * does nothing. The method may be overridden by subclasses but should remains
-	 * synchronized.
-	 *
-	 * @param client the connection with the client.
-	 */
 }
 //End of EchoServer class

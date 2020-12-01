@@ -28,8 +28,6 @@ public class SerchController {
 
 	@FXML
 	void ExitWin(ActionEvent event) throws IOException {
-		// System.exit(0);
-		((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
 		Platform.exit();
 		ClientUI.chat.accept("close");
 
