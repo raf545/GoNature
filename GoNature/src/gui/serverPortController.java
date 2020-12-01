@@ -104,4 +104,13 @@ public class serverPortController {
 
 		});
 	}
+
+	public void disconectClient() {
+		Platform.runLater(() -> {
+			statusTxt.setText("disConnected");
+			ipTxt.setText("");
+			hostTxt.setText("");
+
+		});
+	}
 }
