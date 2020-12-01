@@ -64,7 +64,7 @@ public class EchoServer extends AbstractServer {
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		Visitor sv = new Visitor();
 		String message = (String) msg;
-		System.out.println("Message received: " + msg + " from " + client);
+		System.out.println("Message received !!! : " + msg + " from " + client);
 		if (message.equals("close")) {
 			sPC.disconectClient();
 			this.sendToAllClients("");
