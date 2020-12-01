@@ -138,8 +138,6 @@ public class EchoServer extends AbstractServer {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/gonaturedb?serverTimezone=IST",
 					"root", "root");
 			con = conn;
-			// Connection conn =
-			// DriverManager.getConnection("jdbc:mysql://192.168.3.68/test","root","Root");
 			System.out.println("SQL connection succeed");
 
 		} catch (SQLException ex) {/* handle any errors */
