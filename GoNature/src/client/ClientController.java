@@ -40,10 +40,11 @@ public class ClientController implements ChatIF {
 	 * @param host The host to connect to.
 	 * @param port The port to connect on.
 	 */
+
 	public ClientController(String host, int port) {
 		try {
 			client = new ChatClient(host, port, this);
-						
+
 		} catch (IOException exception) {
 			System.out.println("Error: Can't setup connection!" + " Terminating client.");
 			System.exit(1);
@@ -68,6 +69,11 @@ public class ClientController implements ChatIF {
 	 */
 	public void display(String message) {
 		System.out.println("> " + message);
+	}
+
+	public void closeClientConn() throws IOException {
+		client.quit();
+
 	}
 }
 //End of ConsoleChat class

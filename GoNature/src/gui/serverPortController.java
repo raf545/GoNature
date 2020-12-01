@@ -68,11 +68,12 @@ public class serverPortController {
 			System.out.println("You must enter a port number");
 
 		} else {
-			// ((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary
-			// window
+			
 			Stage primaryStage = new Stage();
 			FXMLLoader loader = new FXMLLoader();
-
+			statusTxt.setText("disConnected");
+			ipTxt.setText("");
+			hostTxt.setText("");
 			ServerUI.runServer(p, this);
 		}
 
@@ -89,7 +90,6 @@ public class serverPortController {
 		Parent root = FXMLLoader.load(getClass().getResource("/gui/ServerPort.fxml"));
 
 		Scene scene = new Scene(root);
-		// scene.getStylesheets().add(getClass().getResource("/gui/ServerPort.css").toExternalForm());
 		primaryStage.setTitle("Client");
 		primaryStage.setScene(scene);
 
@@ -101,6 +101,15 @@ public class serverPortController {
 			statusTxt.setText("Connected");
 			ipTxt.setText(ip);
 			hostTxt.setText(host);
+
+		});
+	}
+
+	public void disconectClient() {
+		Platform.runLater(() -> {
+			statusTxt.setText("disConnected");
+			ipTxt.setText("");
+			hostTxt.setText("");
 
 		});
 	}

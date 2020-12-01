@@ -63,8 +63,12 @@ public class EchoServer extends AbstractServer {
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		Visitor sv = new Visitor();
+		String message = (String) msg;
 		System.out.println("Message received: " + msg + " from " + client);
-		if (msg instanceof ArrayList<?>) {
+		if (message.equals("close")) {
+			sPC.disconectClient();
+			this.sendToAllClients("");
+		} else if (msg instanceof ArrayList<?>) {
 			if (updateEmailInDB(msg))
 				this.sendToAllClients("succsess");
 		} else {
@@ -73,8 +77,8 @@ public class EchoServer extends AbstractServer {
 				this.sendToAllClients(sv.toString());
 			else
 				this.sendToAllClients("Error");
-
 		}
+
 	}
 
 	public Visitor searchInDB(Object msg) {
@@ -163,21 +167,7 @@ public class EchoServer extends AbstractServer {
 	 * @param client the connection connected to the client.
 	 */
 	protected void clientConnected(ConnectionToClient client) {
-
 		sPC.setInfoClient(client.getInetAddress().toString(), client.getInetAddress().getHostAddress().toString());
 	}
-
-	/**
-	 * Hook method called each time a client disconnects. The default implementation
-	 * does nothing. The method may be overridden by subclasses but should remains
-	 * synchronized.
-	 *
-	 * @param client the connection with the client.
-	 */
-	synchronized protected void clientDisconnected(ConnectionToClient client) {
-
-		System.out.println("client disconected!!!!!!");
-	}
-
 }
 //End of EchoServer class
