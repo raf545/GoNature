@@ -5,34 +5,32 @@ package client;
 
 import java.io.*;
 import common.ChatIF;
-import gui.serverPortController;
 
 /**
- * This class constructs the UI for a chat client. It implements the chat
- * interface in order to activate the display() method. Warning: Some of the
- * code here is cloned in ServerConsole
+ * This class constructs the UI for a client. It implements the chat interface
+ * in order to activate the display() method.
  *
- * @author Fran&ccedil;ois B&eacute;langer
- * @author Dr Timothy C. Lethbridge
- * @author Dr Robert Lagani&egrave;re
- * @version July 2000
+ * @author Dan Gutchin
+ * @author Yaniv Sokolov
+ * @author Rafael elkoby
+ * @version December 3 2020
  */
 public class ClientController implements ChatIF {
-	// Class variables *************************************************
+// Class variables *************************************************
 
 	/**
 	 * The default port to connect on.
 	 */
 	public static int DEFAULT_PORT;
 
-	// Instance variables **********************************************
+// Instance variables **********************************************
 
 	/**
 	 * The instance of the client that created this ConsoleChat.
 	 */
 	ChatClient client;
 
-	// Constructors ****************************************************
+// Constructors ****************************************************
 
 	/**
 	 * Constructs an instance of the ClientConsole UI.
@@ -51,14 +49,14 @@ public class ClientController implements ChatIF {
 		}
 	}
 
-	// Instance methods ************************************************
+// Instance methods ************************************************
 
 	/**
 	 * This method waits for input from the console. Once it is received, it sends
 	 * it to the client's message handler.
 	 */
-	public void accept(Object str) {
-		client.handleMessageFromClientUI(str);
+	public void accept(Object msg) {
+		client.handleMessageFromClientUI(msg);
 	}
 
 	/**
@@ -71,6 +69,10 @@ public class ClientController implements ChatIF {
 		System.out.println("> " + message);
 	}
 
+	/**
+	 * This method Close a client connection with the Server
+	 * 
+	 */
 	public void closeClientConn() throws IOException {
 		client.quit();
 

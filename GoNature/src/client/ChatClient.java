@@ -14,9 +14,14 @@ import java.io.*;
  * in order to give more functionality to the client.
  *
  * @author Dr Timothy C. Lethbridge
- * @author Dr Robert Lagani&egrave;
+ * @author Dr Robert Lagani&egrave;re
  * @author Fran&ccedil;ois B&eacute;langer
- * @version July 2000
+ * @author Paul Holden
+ * 
+ * @Editor Dan Gutchin
+ * @Editor Yaniv Sokolov
+ * @Editor Rafael elkoby
+ * @version December 3 2020
  */
 public class ChatClient extends AbstractClient {
 	// Instance variables **********************************************
@@ -48,7 +53,7 @@ public class ChatClient extends AbstractClient {
 	// Instance methods ************************************************
 
 	/**
-	 * This method handles all data that comes in from the server.
+	 * This method handles the data that comes in from the server about a visitor
 	 *
 	 * @param msg The message from the server.
 	 */

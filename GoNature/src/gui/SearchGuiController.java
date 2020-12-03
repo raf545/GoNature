@@ -15,8 +15,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class SerchController {
+/**
+ * @author Dan Gutchin
+ * @author Yaniv Sokolov
+ * @author Rafael Elkoby
+ * @version December 3 2020
+ */
 
+public class SearchGuiController {
+
+// Instance variables **********************************************
+	/**
+	 * idText the field in witch the user type in the ID in the GUI
+	 */
 	@FXML
 	private TextField idText;
 
@@ -26,6 +37,25 @@ public class SerchController {
 	@FXML
 	private Button exitBtn;
 
+// Getters methods **********************************************
+	/**
+	 * This method Gets the written id in the text field
+	 * 
+	 * @return the id field in the idText field
+	 */
+	private String getID() {
+		return idText.getText();
+	}
+
+// Instance methods ************************************************
+	/**
+	 * This method closes a given java ?????
+	 * 
+	 * FIXME Replace Platform.exit(); with a more gentle measure
+	 * 
+	 * @throws IOException
+	 */
+
 	@FXML
 	void ExitWin(ActionEvent event) throws IOException {
 		Platform.exit();
@@ -33,12 +63,15 @@ public class SerchController {
 
 	}
 
-	private String getID() {
-		return idText.getText();
-	}
-
+	/**
+	 * This method sends the given id number to the server, witch executes a SQL
+	 * query, and get the relevant info about a given id. then displays it on the
+	 * VisitoForm GUI.
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
-	// change to serchidindb
 	void SerchIdInDB(ActionEvent event) throws IOException {
 		String id;
 		FXMLLoader loader = new FXMLLoader();
@@ -73,6 +106,12 @@ public class SerchController {
 
 	}
 
+	/**
+	 * This method start and displays the GUI on to the screen
+	 * 
+	 * @throws Exception
+	 * @param primaryStage the primary stage for this application
+	 */
 	public void start(Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader.load(getClass().getResource("/gui/SerchGui.fxml"));
 
@@ -84,3 +123,5 @@ public class SerchController {
 	}
 
 }
+//End of SearchController class
+

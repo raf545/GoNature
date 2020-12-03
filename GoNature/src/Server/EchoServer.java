@@ -3,20 +3,15 @@
 // license found at www.lloseng.com 
 package Server;
 
-import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-
 import gui.serverPortController;
 import logic.Visitor;
 import ocsf.server.*;
-import sun.security.jca.GetInstance;
 
 /**
  * This class overrides some of the methods in the abstract superclass in order
@@ -26,6 +21,11 @@ import sun.security.jca.GetInstance;
  * @author Dr Robert Lagani&egrave;re
  * @author Fran&ccedil;ois B&eacute;langer
  * @author Paul Holden
+ * 
+ * @Editor Dan Gutchin
+ * @Editor Yaniv Sokolov
+ * @Editor Rafael elkoby
+ * @version December 3 2020
  * @version July 2000
  */
 
@@ -66,7 +66,7 @@ public class EchoServer extends AbstractServer {
 		String message = (String) msg;
 		System.out.println("Message received !!! : " + msg + " from " + client);
 		if (message.equals("close")) {
-			sPC.disconectClient();
+			sPC.setDisconectClientFields();
 			this.sendToAllClients("");
 		} else if (msg instanceof ArrayList<?>) {
 			if (updateEmailInDB(msg))
@@ -81,6 +81,17 @@ public class EchoServer extends AbstractServer {
 
 	}
 
+	/**
+	 * This method searches for a specific visitor in the DB
+	 * 
+	 * @param msg
+	 * @return IF found: returns a visitors
+	 * @return Else Throws exception
+	 * 
+	 *         TODO change exception throw into something less strong 
+	 *         TODO catch and handle the SQL exception
+	 */
+	
 	public Visitor searchInDB(Object msg) {
 		ResultSet res;
 		Visitor sv = new Visitor();
@@ -105,9 +116,20 @@ public class EchoServer extends AbstractServer {
 		return sv;
 	}
 
+	/**
+	 * Updates the Email of a given visitor
+	 * 
+	 * @param msg given visitor and email
+	 * @return "true" if updated successfuly
+	 * 
+	 * 		TODO check if instance Arraylist
+	 * 		FIXME never returns a false value
+	 */
 	public boolean updateEmailInDB(Object msg) {
 
-		ArrayList tempV = (ArrayList<String>) msg;
+		@SuppressWarnings("unchecked")
+		// FIXME why do i need to suppress warning here?
+		ArrayList<String> tempV = (ArrayList<String>) msg;
 		try {
 			PreparedStatement ps = con.prepareStatement("UPDATE gonaturedb.visitors SET email = ? WHERE (id = ?);");
 			ps.setString(2, (String) tempV.get(0));
@@ -115,7 +137,7 @@ public class EchoServer extends AbstractServer {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// TODO create a message for the exception
 			e.printStackTrace();
 		}
 		return true;

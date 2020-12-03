@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class ServerUI extends Application {
+	
 	final public static int DEFAULT_PORT = 5555;
 	 static serverPortController sPC;
 
@@ -38,3 +39,4 @@ public class ServerUI extends Application {
 	}
 
 }
+//End of ServerUI class

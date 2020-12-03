@@ -1,10 +1,19 @@
 package logic;
 
-public class Visitor {
+/**
+ * This class represents a General visitor
+ *
+ * @author Dan Gutchin
+ * @author Yaniv Sokolov
+ * @author Rafael elkoby
+ * @version December 3 2020
+ */
 
+public class Visitor {
+// Class variables *************************************************
 	private String name, email, id, lastname, phone;
 
-	/* empty contructor creates a nullifyed visitor */
+// Class Constructors *************************************************
 	public Visitor() {
 		this.name = null;
 		this.email = null;
@@ -13,6 +22,13 @@ public class Visitor {
 		this.phone = null;
 	}
 
+	/**
+	 * @param name     First name
+	 * @param email    Email
+	 * @param id       ID
+	 * @param lastname Last name
+	 * @param phone    Phone number
+	 */
 	public Visitor(String name, String email, String id, String lastname, String phone) {
 		this.name = name;
 		this.email = email;
@@ -20,12 +36,29 @@ public class Visitor {
 		this.lastname = lastname;
 		this.phone = phone;
 	}
+// Class Getters *************************************************
 
-	/* setters and getters for the visitor class */
 	public String getEmail() {
 		return email;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+// Class Setters *************************************************
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -46,22 +79,7 @@ public class Visitor {
 		this.email = email;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
+// Overridden methods ************************************************
 	@Override
 	public String toString() {
 		StringBuilder ts = new StringBuilder();
