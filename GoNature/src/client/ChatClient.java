@@ -30,7 +30,7 @@ public class ChatClient extends AbstractClient {
 	// Instance variables **********************************************
 
 	/**
-	 * The interface type variable. It allows the implementation of the display
+	 * The interface type variable. It allows the implementation of the displaY
 	 * method in the client.
 	 */
 	ChatIF clientUI;

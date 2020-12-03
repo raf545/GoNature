@@ -21,7 +21,7 @@ public class ServerUI extends Application {
 
 	public static void runServer(String p,serverPortController aFrame) {
 		int port = 0; // Port to listen on
-		sPC = aFrame;
+		sPC = aFrame; 
 		try {
 			port = Integer.parseInt(p); // Set port to 5555
 

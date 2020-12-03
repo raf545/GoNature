@@ -17,7 +17,7 @@ import logic.Visitor;
 
 /**
  * @author Dan Gutchin
- * @author Yaniv Sokolov
+ * @author Yaniv Sokolov 
  * @author Rafael Elkoby
  * @version December 3 2020
  */

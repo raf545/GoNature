@@ -18,7 +18,7 @@ public class Visitor {
 		this.name = null;
 		this.email = null;
 		this.id = null;
-		this.lastname = null;
+		this.lastname = null; 
 		this.phone = null;
 	}
 

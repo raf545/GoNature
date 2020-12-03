@@ -28,7 +28,7 @@ public class SqlConnector {
 	// Constructors *************************************************
 
 	private SqlConnector() {
-
+ 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 			System.out.println("Driver definition succeed");

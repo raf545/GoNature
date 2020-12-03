@@ -3,7 +3,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import gui.SearchGuiController;
 
-
+ 
 /**
  * @author Dan Gutchin 
  * @author Yaniv Sokolov 

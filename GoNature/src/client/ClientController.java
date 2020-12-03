@@ -9,7 +9,7 @@ import common.ChatIF;
 /**
  * This class constructs the UI for a client. It implements the chat interface
  * in order to activate the display() method.
- *
+ * 
  * @author Dan Gutchin
  * @author Yaniv Sokolov
  * @author Rafael elkoby

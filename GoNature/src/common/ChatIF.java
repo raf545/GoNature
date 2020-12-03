@@ -9,7 +9,7 @@ package common;
  * objects onto the client or server UIs.
  *
  * @author Dr Robert Lagani&egrave;re
- * @author Dr Timothy C. Lethbridge
+ * @author Dr Timothy C. Lethbridge 
  * @version July 2000
  */
 public interface ChatIF 
