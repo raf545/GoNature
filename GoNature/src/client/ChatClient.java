@@ -23,6 +23,7 @@ import java.io.*;
  * @Editor Rafael elkoby
  * @version December 3 2020
  */
+ //rafael efes
 
 public class ChatClient extends AbstractClient {
 	// Instance variables **********************************************
