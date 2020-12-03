@@ -3,15 +3,11 @@
 // license found at www.lloseng.com 
 package Server;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import gui.serverPortController;
 import logic.Visitor;
 import ocsf.server.*;
+import sqlConnection.SqlConnector;
 
 /**
  * This class overrides some of the methods in the abstract superclass in order
@@ -26,14 +22,13 @@ import ocsf.server.*;
  * @Editor Yaniv Sokolov
  * @Editor Rafael elkoby
  * @version December 3 2020
- * @version July 2000
  */
 
 public class EchoServer extends AbstractServer {
 	// Class variables *************************************************
-	private Connection con;
-	private serverPortController sPC;
 
+	private serverPortController sPC;
+	private SqlConnector co;
 	/**
 	 * The default port to listen on.
 	 */
@@ -63,84 +58,29 @@ public class EchoServer extends AbstractServer {
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		Visitor sv = new Visitor();
-		String message = (String) msg;
-		System.out.println("Message received !!! : " + msg + " from " + client);
-		if (message.equals("close")) {
-			sPC.setDisconectClientFields();
-			this.sendToAllClients("");
-		} else if (msg instanceof ArrayList<?>) {
-			if (updateEmailInDB(msg))
-				this.sendToAllClients("succsess");
-		} else {
-			sv = searchInDB(msg);
-			if (sv.getId() != null)
-				this.sendToAllClients(sv.toString());
-			else
-				this.sendToAllClients("Error");
-		}
+		String message = null;
+		System.out.println("Message received : " + msg + " from " + client);
 
-	}
-
-	/**
-	 * This method searches for a specific visitor in the DB
-	 * 
-	 * @param msg
-	 * @return IF found: returns a visitors
-	 * @return Else Throws exception
-	 * 
-	 *         TODO change exception throw into something less strong 
-	 *         TODO catch and handle the SQL exception
-	 */
-	
-	public Visitor searchInDB(Object msg) {
-		ResultSet res;
-		Visitor sv = new Visitor();
-		try {
-			String s = (String) msg;
-			PreparedStatement ps = con.prepareStatement("select * from visitors where id = ?");
-			ps.setString(1, s);
-
-			res = ps.executeQuery();
-
-			while (res.next()) {
-				sv.setId(res.getString(1));
-				sv.setPhone(res.getString(2));
-				sv.setLastname(res.getString(3));
-				sv.setName(res.getString(4));
-				sv.setEmail(res.getString(5));
+		if (msg instanceof String) {
+			message = (String) msg;
+			if (message.equals("close")) {
+				// FIXME not a proper client close
+				sPC.setDisconectClientFields();
+				this.sendToAllClients("");
+				System.out.println("Drasd");
+			} else {
+				sv = co.searchInDB(msg);
+				if (sv.getId() != null)
+					this.sendToAllClients(sv.toString());
+				else
+					this.sendToAllClients("Error");
 			}
-			res.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
-		return sv;
-	}
-
-	/**
-	 * Updates the Email of a given visitor
-	 * 
-	 * @param msg given visitor and email
-	 * @return "true" if updated successfuly
-	 * 
-	 * 		TODO check if instance Arraylist
-	 * 		FIXME never returns a false value
-	 */
-	public boolean updateEmailInDB(Object msg) {
-
-		@SuppressWarnings("unchecked")
-		// FIXME why do i need to suppress warning here?
-		ArrayList<String> tempV = (ArrayList<String>) msg;
-		try {
-			PreparedStatement ps = con.prepareStatement("UPDATE gonaturedb.visitors SET email = ? WHERE (id = ?);");
-			ps.setString(2, (String) tempV.get(0));
-			ps.setString(1, (String) tempV.get(1));
-			ps.executeUpdate();
-
-		} catch (SQLException e) {
-			// TODO create a message for the exception
-			e.printStackTrace();
+		if (msg instanceof ArrayList<?>) {
+			if (co.updateEmailInDB(msg))
+				this.sendToAllClients("succsess");
 		}
-		return true;
+
 	}
 
 	/**
@@ -148,26 +88,7 @@ public class EchoServer extends AbstractServer {
 	 * starts listening for connections.
 	 */
 	protected void serverStarted() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-			System.out.println("Driver definition succeed");
-		} catch (Exception ex) {
-			/* handle the error */
-			System.out.println("Driver definition failed");
-		}
-
-		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/gonaturedb?serverTimezone=IST",
-					"root", "root");
-			con = conn;
-			System.out.println("SQL connection succeed");
-
-		} catch (SQLException ex) {/* handle any errors */
-			System.out.println("SQLException: " + ex.getMessage());
-			System.out.println("SQLState: " + ex.getSQLState());
-			System.out.println("VendorError: " + ex.getErrorCode());
-		}
-
+		co = SqlConnector.getInstance();
 	}
 
 	/**

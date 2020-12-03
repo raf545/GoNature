@@ -61,7 +61,7 @@ public class VisitorFormController {
 
 	@FXML
 	private Button emailUpadteBtn;
-
+	
 	/**
 	 * This method Send the server a request to update the email for a given visitor
 	 *
@@ -69,6 +69,7 @@ public class VisitorFormController {
 	 */
 	@FXML
 	void updateEmailInDB(ActionEvent event) {
+		
 		msgListForServer = new ArrayList<String>();
 		msgListForServer.add(idText.getText());
 		msgListForServer.add(emailText.getText());
