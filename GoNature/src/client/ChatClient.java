@@ -8,7 +8,7 @@ import ocsf.client.*;
 import common.ChatIF;
 import logic.Visitor;
 import java.io.*;
-//test1234
+
 /**
  * This class overrides some of the methods defined in the abstract superclass
  * in order to give more functionality to the client.
@@ -23,9 +23,7 @@ import java.io.*;
  * @Editor Rafael elkoby
  * @version December 3 2020
  */
- //rafael efes meod
-
-//Shay changed the code
+ 
 public class ChatClient extends AbstractClient {
 	// Instance variables **********************************************
 
