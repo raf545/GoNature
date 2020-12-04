@@ -1,6 +1,7 @@
 package gui;
 
 import java.io.IOException;
+
 import client.ChatClient;
 import client.ClientUI;
 import javafx.application.Platform;
@@ -11,11 +12,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-/** 
+/**
  * @author Dan Gutchin
  * @author Yaniv Sokolov
  * @author Rafael Elkoby
@@ -28,6 +30,10 @@ public class SearchGuiController {
 	/**
 	 * idText the field in witch the user type in the ID in the GUI
 	 */
+
+	@FXML
+	private Label idNotFoundLabel;
+
 	@FXML
 	private TextField idText;
 
@@ -72,7 +78,7 @@ public class SearchGuiController {
 	 * @throws IOException
 	 */
 	@FXML
-	void searchIdInDB(ActionEvent event) throws IOException {
+	void SerchIdInDB(ActionEvent event) throws IOException {
 		String id;
 		FXMLLoader loader = new FXMLLoader();
 
@@ -80,11 +86,13 @@ public class SearchGuiController {
 		if (id.trim().isEmpty()) {
 
 			System.out.println("You must enter an id number");
+
 		} else {
 			ClientUI.chat.accept(id);
 
 			if (ChatClient.v1.getId().equals("Error")) {
 				System.out.println("ID Not Found");
+				idNotFoundLabel.setVisible(true);
 
 			} else {
 				System.out.println("ID Found");
@@ -113,15 +121,15 @@ public class SearchGuiController {
 	 * @param primaryStage the primary stage for this application
 	 */
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("/gui/SearchGui.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/gui/SerchGui.fxml"));
 
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("Search");
 		primaryStage.setScene(scene);
 
 		primaryStage.show();
+
 	}
 
 }
 //End of SearchController class
-
