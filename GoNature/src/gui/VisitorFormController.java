@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import client.ClientUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -17,7 +19,7 @@ import logic.Visitor;
 
 /**
  * @author Dan Gutchin
- * @author Yaniv Sokolov 
+ * @author Yaniv Sokolov
  * @author Rafael Elkoby
  * @version December 3 2020
  */
@@ -61,7 +63,10 @@ public class VisitorFormController {
 
 	@FXML
 	private Button emailUpadteBtn;
-	
+
+	@FXML
+	private Label emailUpdatedText;
+
 	/**
 	 * This method Send the server a request to update the email for a given visitor
 	 *
@@ -69,12 +74,13 @@ public class VisitorFormController {
 	 */
 	@FXML
 	void updateEmailInDB(ActionEvent event) {
-		
+
 		msgListForServer = new ArrayList<String>();
 		msgListForServer.add(idText.getText());
 		msgListForServer.add(emailText.getText());
 
 		ClientUI.chat.accept(msgListForServer);
+		emailUpdatedText.setVisible(true);
 
 	}
 
@@ -104,7 +110,7 @@ public class VisitorFormController {
 
 		((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
 		Stage primaryStage = new Stage();
-		Pane root = loader.load(getClass().getResource("/gui/searchGui.fxml").openStream());
+		Pane root = loader.load(getClass().getResource("/gui/SerchGui.fxml").openStream());
 
 		// how to write
 
