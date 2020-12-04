@@ -25,7 +25,7 @@ import java.io.*;
  */
  //rafael efes meod
 
-
+//Shay changed the code
 public class ChatClient extends AbstractClient {
 	// Instance variables **********************************************
 
