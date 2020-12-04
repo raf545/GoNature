@@ -4,7 +4,7 @@
 package Server;
 
 import java.util.ArrayList;
-import gui.serverPortController;
+import gui.ServerPortController;
 import logic.Visitor;
 import ocsf.server.*;
 import sqlConnection.SqlConnector;
@@ -27,8 +27,8 @@ import sqlConnection.SqlConnector;
 public class EchoServer extends AbstractServer {
 	// Class variables *************************************************
 
-	private serverPortController sPC;
-	private SqlConnector co;
+	private ServerPortController serverPortControllerInstance;
+	private SqlConnector sqlConnector;
 	/**
 	 * The default port to listen on.
 	 */
@@ -42,9 +42,9 @@ public class EchoServer extends AbstractServer {
 	 * @param port The port number to connect on.
 	 * 
 	 */
-	public EchoServer(int port, serverPortController sPC) {
+	public EchoServer(int port, ServerPortController sPC) {
 		super(port);
-		this.sPC = sPC;
+		this.serverPortControllerInstance = sPC;
 	}
 
 	// Instance methods ************************************************
@@ -65,11 +65,11 @@ public class EchoServer extends AbstractServer {
 			message = (String) msg;
 			if (message.equals("close")) {
 				// FIXME not a proper client close
-				sPC.setDisconectClientFields();
+				serverPortControllerInstance.setDisconectClientFields();
 				this.sendToAllClients("");
 				System.out.println("Drasd");
 			} else {
-				sv = co.searchInDB(msg);
+				sv = sqlConnector.searchInDB(msg);
 				if (sv.getId() != null)
 					this.sendToAllClients(sv.toString());
 				else
@@ -77,7 +77,7 @@ public class EchoServer extends AbstractServer {
 			}
 		}
 		if (msg instanceof ArrayList<?>) {
-			if (co.updateEmailInDB(msg))
+			if (sqlConnector.updateEmailInDB(msg))
 				this.sendToAllClients("succsess");
 		}
 
@@ -88,7 +88,7 @@ public class EchoServer extends AbstractServer {
 	 * starts listening for connections.
 	 */
 	protected void serverStarted() {
-		co = SqlConnector.getInstance();
+		sqlConnector = SqlConnector.getInstance();
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class EchoServer extends AbstractServer {
 	 * @param client the connection connected to the client.
 	 */
 	protected void clientConnected(ConnectionToClient client) {
-		sPC.setInfoClient(client.getInetAddress().toString(), client.getInetAddress().getHostAddress().toString());
+		serverPortControllerInstance.setInfoClient(client.getInetAddress().toString(), client.getInetAddress().getHostAddress().toString());
 	}
 }
 //End of EchoServer class

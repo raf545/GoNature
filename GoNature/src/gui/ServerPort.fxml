@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane prefHeight="361.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.serverPortController">
+<Pane prefHeight="361.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ServerPortController">
    <children>
       <Button fx:id="btnDone" layoutX="170.0" layoutY="78.0" mnemonicParsing="false" onAction="#setPort" prefHeight="31.0" prefWidth="64.0" text="Done" />
       <TextField fx:id="portxt" layoutX="109.0" layoutY="36.0" prefHeight="31.0" prefWidth="186.0" />

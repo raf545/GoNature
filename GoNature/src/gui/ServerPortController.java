@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  * @author Rafael elkoby
  * @version December 3 2020
  */
-public class serverPortController {
+public class ServerPortController {
 
 // Instance variables **********************************************
 	@FXML

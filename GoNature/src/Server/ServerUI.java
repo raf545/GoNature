@@ -1,13 +1,13 @@
 package Server;
 
-import gui.serverPortController;
+import gui.ServerPortController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class ServerUI extends Application {
 	
 	final public static int DEFAULT_PORT = 5555;
-	 static serverPortController sPC;
+	 static ServerPortController sPC;
 
 	public static void main(String args[]) throws Exception {
 		launch(args);
@@ -15,11 +15,11 @@ public class ServerUI extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		serverPortController aFrame = new serverPortController(); // create server GUI
+		ServerPortController aFrame = new ServerPortController(); // create server GUI
 		aFrame.start(primaryStage);
 	}
 
-	public static void runServer(String p,serverPortController aFrame) {
+	public static void runServer(String p,ServerPortController aFrame) {
 		int port = 0; // Port to listen on
 		sPC = aFrame; 
 		try {
