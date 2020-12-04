@@ -5,7 +5,7 @@ package client;
 
 import java.io.*;
 import common.ChatIF;
-
+// awdawdawd
 /**
  * This class constructs the UI for a client. It implements the chat interface
  * in order to activate the display() method.
