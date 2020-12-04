@@ -32,7 +32,7 @@ public class SearchGuiController {
 	private TextField idText;
 
 	@FXML
-	private Button serchBtn;
+	private Button searchBtn;
 
 	@FXML
 	private Button exitBtn;
@@ -72,7 +72,7 @@ public class SearchGuiController {
 	 * @throws IOException
 	 */
 	@FXML
-	void SerchIdInDB(ActionEvent event) throws IOException {
+	void searchIdInDB(ActionEvent event) throws IOException {
 		String id;
 		FXMLLoader loader = new FXMLLoader();
 
@@ -113,10 +113,10 @@ public class SearchGuiController {
 	 * @param primaryStage the primary stage for this application
 	 */
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("/gui/SerchGui.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/gui/SearchGui.fxml"));
 
 		Scene scene = new Scene(root);
-		primaryStage.setTitle("Serch");
+		primaryStage.setTitle("Search");
 		primaryStage.setScene(scene);
 
 		primaryStage.show();

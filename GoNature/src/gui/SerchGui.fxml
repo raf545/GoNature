@@ -10,7 +10,7 @@
    <children>
       <Label text="Insert ID \ subscruiber ID" />
       <TextField fx:id="idText" />
-      <Button fx:id="serchBtn" mnemonicParsing="false" onAction="#SerchIdInDB" text="Serch" />
+      <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#SerchIdInDB" text="Serch" />
       <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#ExitWin" text="Exit" />
    </children>
    <padding>

@@ -104,7 +104,7 @@ public class VisitorFormController {
 
 		((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
 		Stage primaryStage = new Stage();
-		Pane root = loader.load(getClass().getResource("/gui/serchGui.fxml").openStream());
+		Pane root = loader.load(getClass().getResource("/gui/searchGui.fxml").openStream());
 
 		// how to write
 
