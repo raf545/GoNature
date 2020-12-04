@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/** 
+/**
  * @author Dan Gutchin
  * @author Yaniv Sokolov
  * @author Rafael elkoby
@@ -48,6 +48,9 @@ public class ServerPortController {
 	 */
 	@FXML
 	private TextField ipTxt;
+
+	@FXML
+	private TextField dbStatus;
 
 // Getters methods **********************************************
 
@@ -86,19 +89,25 @@ public class ServerPortController {
 		});
 	}
 
+	public void setConnectToDB() {
+		Platform.runLater(() -> {
+			dbStatus.setText("Connected");
+		});
+	}
+
 // Instance methods ************************************************
 	/**
-	 * This method sets the serve port with a given user port 
-	 * and sets the relevant GUI fields
+	 * This method sets the serve port with a given user port and sets the relevant
+	 * GUI fields
 	 */
 	@FXML
 	void setPort(ActionEvent event) {
 		String p;
 
 		p = getport();
-		ipTxt.setDisable(true);
-		statusTxt.setDisable(true);
-		hostTxt.setDisable(true);
+//		ipTxt.setDisable(true);
+//		statusTxt.setDisable(true);
+//		hostTxt.setDisable(true);
 
 		if (p.trim().isEmpty()) {
 			System.out.println("You must enter a port number");
@@ -140,7 +149,7 @@ public class ServerPortController {
 		Parent root = FXMLLoader.load(getClass().getResource("/gui/ServerPort.fxml"));
 
 		Scene scene = new Scene(root);
-		primaryStage.setTitle("Client");
+		primaryStage.setTitle("Server");
 		primaryStage.setScene(scene);
 
 		primaryStage.show();

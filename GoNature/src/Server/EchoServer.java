@@ -50,8 +50,8 @@ public class EchoServer extends AbstractServer {
 	// Instance methods ************************************************
 
 	/**
-	 * This method handles any messages received from the client.
-	 * HEY
+	 * This method handles any messages received from the client. HEY
+	 * 
 	 * @param msg    The message received from the client.
 	 * @param client The connection from which the message originated.
 	 * @param
@@ -89,6 +89,7 @@ public class EchoServer extends AbstractServer {
 	 */
 	protected void serverStarted() {
 		sqlConnector = SqlConnector.getInstance();
+		serverPortControllerInstance.setConnectToDB();
 	}
 
 	/**
@@ -108,7 +109,8 @@ public class EchoServer extends AbstractServer {
 	 * @param client the connection connected to the client.
 	 */
 	protected void clientConnected(ConnectionToClient client) {
-		serverPortControllerInstance.setInfoClient(client.getInetAddress().toString(), client.getInetAddress().getHostAddress().toString());
+		serverPortControllerInstance.setInfoClient(client.getInetAddress().toString(),
+				client.getInetAddress().getHostAddress().toString());
 	}
 }
 //End of EchoServer class
