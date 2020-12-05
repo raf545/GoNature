@@ -11,7 +11,7 @@
       <Label minHeight="-Infinity" minWidth="-Infinity" text="Insert ID \ subscruiber ID" />
       <TextField fx:id="idText" />
       <Label fx:id="idNotFoundLabel" text="ID not found" textFill="#e80606" visible="false" />
-      <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#SerchIdInDB" text="Serch" />
+      <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#SerchIdInDB" text="Search" />
       <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#ExitWin" text="Exit" />
    </children>
    <padding>

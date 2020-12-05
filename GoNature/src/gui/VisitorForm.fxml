@@ -47,7 +47,7 @@
                </VBox.margin>
             </Button>
             <Button fx:id="emailUpadteBtn" alignment="CENTER" mnemonicParsing="false" onAction="#updateEmailInDB" text="Update Email" />
-            <Label fx:id="emailUpdatedText" text="email updated" textFill="#e10808" visible="false" />
+            <Label fx:id="emailUpdatedText" text="email updated" textFill="#2c2b2b" visible="false" />
          </children>
          <opaqueInsets>
             <Insets />

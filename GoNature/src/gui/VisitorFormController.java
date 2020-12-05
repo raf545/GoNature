@@ -115,7 +115,7 @@ public class VisitorFormController {
 		// how to write
 
 		Scene scene = new Scene(root);
-		primaryStage.setTitle("Visitor Managment Tool");
+		primaryStage.setTitle("Search");
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
