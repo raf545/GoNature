@@ -22,9 +22,9 @@ public class SqlConnector {
 	// Class variables *************************************************
 	private static SqlConnector SqlConnectorInstace = null;
 	private Connection con = null;
-	private String jdbcURL = "jdbc:mysql://localhost:3306/?user=root";
+	private String jdbcURL = "jdbc:mysql://localhost/gonaturedb?serverTimezone=IST";
 	private String jdbcuser = "root";
-	private String jdbcPass = "7C034CBD7cd$";
+	private String jdbcPass = "root";
 	// Constructors *************************************************
 
 	private SqlConnector() {
@@ -71,7 +71,7 @@ public class SqlConnector {
 		// FIXME why do i need to suppress warning here?
 		ArrayList<String> tempV = (ArrayList<String>) msg;
 		try {
-			PreparedStatement ps = con.prepareStatement("UPDATE gonature.Visitors SET email = ? WHERE (id = ?);");
+			PreparedStatement ps = con.prepareStatement("UPDATE gonaturedb.visitors SET email = ? WHERE (id = ?);");
 			ps.setString(2, (String) tempV.get(0));
 			ps.setString(1, (String) tempV.get(1));
 			ps.executeUpdate();
@@ -100,7 +100,7 @@ public class SqlConnector {
 		Visitor sv = new Visitor();
 		try {
 			String s = (String) msg;
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM gonature.Visitors WHERE id = ?;");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM gonaturedb.visitors WHERE id = ?;");
 			ps.setString(1, s);
 
 			res = ps.executeQuery();

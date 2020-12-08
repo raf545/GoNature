@@ -1,13 +1,16 @@
 package Server;
 
-import gui.ServerPortController;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import serverGui.ServerPortController;
 
 public class ServerUI extends Application {
-	
+
 	final public static int DEFAULT_PORT = 5555;
-	 static ServerPortController sPC;
+	static ServerPortController sPC;
 
 	public static void main(String args[]) throws Exception {
 		launch(args);
@@ -15,13 +18,23 @@ public class ServerUI extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		ServerPortController aFrame = new ServerPortController(); // create server GUI
-		aFrame.start(primaryStage);
+
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(ServerPortController.class.getResource("ServerPort.fxml"));
+
+		Pane root = loader.load();
+
+		Scene sc = new Scene(root);
+
+		primaryStage.setTitle("Server");
+		primaryStage.setScene(sc);
+		primaryStage.show();
+
 	}
 
-	public static void runServer(String p,ServerPortController aFrame) {
+	public static void runServer(String p, ServerPortController aFrame) {
 		int port = 0; // Port to listen on
-		sPC = aFrame; 
+		sPC = aFrame;
 		try {
 			port = Integer.parseInt(p); // Set port to 5555
 
