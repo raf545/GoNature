@@ -3,10 +3,13 @@
 // license found at www.lloseng.com 
 package Server;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import gui.ServerPortController;
+
 import logic.Visitor;
-import ocsf.server.*;
+import ocsf.server.AbstractServer;
+import ocsf.server.ConnectionToClient;
+import serverGui.ServerPortController;
 import sqlConnection.SqlConnector;
 
 /**
@@ -60,27 +63,34 @@ public class EchoServer extends AbstractServer {
 		Visitor sv = new Visitor();
 		String message = null;
 		System.out.println("Message received : " + msg + " from " + client);
+		try {
+			if (msg instanceof String) {
+				message = (String) msg;
+				if (message.equals("close")) {
+					// FIXME not a proper client close
+					serverPortControllerInstance.setDisconectClientFields();
+					client.sendToClient("");
 
-		if (msg instanceof String) {
-			message = (String) msg;
-			if (message.equals("close")) {
-				// FIXME not a proper client close
-				serverPortControllerInstance.setDisconectClientFields();
-				this.sendToAllClients("");
-				System.out.println("Drasd");
-			} else {
-				sv = sqlConnector.searchInDB(msg);
-				if (sv.getId() != null)
-					this.sendToAllClients(sv.toString());
-				else
-					this.sendToAllClients("Error");
+				} else {
+					sv = sqlConnector.searchInDB(msg);
+					if (sv.getId() != null)
+
+						client.sendToClient(sv.toString());
+
+					else
+						client.sendToClient("Error");
+				}
 			}
-		}
-		if (msg instanceof ArrayList<?>) {
-			if (sqlConnector.updateEmailInDB(msg))
-				this.sendToAllClients("succsess");
-		}
+			if (msg instanceof ArrayList<?>) {
+				if (sqlConnector.updateEmailInDB(msg))
+					client.sendToClient("succsess");
+			}
+		} catch (
 
+		IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

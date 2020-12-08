@@ -1,4 +1,4 @@
-package gui;
+package serverGui;
 
 import Server.ServerUI;
 import javafx.application.Platform;
@@ -105,6 +105,7 @@ public class ServerPortController {
 		String p;
 
 		p = getport();
+		btnDone.setDisable(true);
 //		ipTxt.setDisable(true);
 //		statusTxt.setDisable(true);
 //		hostTxt.setDisable(true);
@@ -144,16 +145,15 @@ public class ServerPortController {
 	 * @throws Exception
 	 * @param primaryStage the primary stage for this application
 	 */
-	public void start(Stage primaryStage) throws Exception {
-
-		Parent root = FXMLLoader.load(getClass().getResource("/gui/ServerPort.fxml"));
-
-		Scene scene = new Scene(root);
-		primaryStage.setTitle("Server");
-		primaryStage.setScene(scene);
-
-		primaryStage.show();
-	}
+//	public void start(Stage primaryStage) throws Exception {
+//		Parent root = FXMLLoader.load(this.getClass().getResource("ServerPort.fxml"));
+//
+//		Scene scene = new Scene(root);
+//		primaryStage.setTitle("Server");
+//		primaryStage.setScene(scene);
+//
+//		primaryStage.show();
+//	}
 
 }
 //End of serverPortController class
